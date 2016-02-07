@@ -1,10 +1,7 @@
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 var fps = 20;
-var colors = ['rgb(250, 128, 114)', 'rgb(250, 173, 114)', 'rgb(250, 218, 114)', 'rgb(236, 250, 114)'];
-
-fillScreen();
-draw();
+var colors;
 
 function draw() {
   var i = 0;
@@ -13,7 +10,7 @@ function draw() {
   var width = canvas.width;
   var height = canvas.height;
   while (width > d && height > d) {
-    ctx.fillStyle = colors[i%4];
+    ctx.fillStyle = colors[i%colors.length];
     ctx.fillRect(x,x,width,height);
     x += d;
     width -= 2 * d;
@@ -21,9 +18,24 @@ function draw() {
     i++;
   }
   colors.push(colors.shift());
+
   setTimeout(function() {
     requestAnimationFrame(draw);
   }, 1000/fps);
+}
+
+function getColors() {
+  var color = Please.make_color({
+    format: 'hsv'
+  });
+
+  colors = Please.make_scheme(color, {
+    scheme_type: 'analogous'
+  });
+
+  colors.splice(5,1);
+  colors.splice(2,1);
+  console.log(colors);
 }
 
 function fillScreen() {
@@ -33,3 +45,7 @@ function fillScreen() {
   canvas.style.width = window.innerWidth + 'px';
   canvas.style.height = window.innerHeight + 'px';
 }
+
+fillScreen();
+getColors();
+draw();
