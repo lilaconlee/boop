@@ -1,6 +1,6 @@
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
-var fps = 1;
+var fps = 2;
 var h = window.innerHeight * window.devicePixelRatio;
 var w = window.innerWidth * window.devicePixelRatio;
 var l = w/5;
@@ -39,14 +39,13 @@ function draw() {
     ctx.fill();
     ctx.stroke();
 
-    rand = Math.random() * 1000;
+    rand = Math.random() * (1000 - 200) + 200;
     ctx.beginPath();
     ctx.moveTo(i * l, 0);
     ctx.quadraticCurveTo(((i*2) + 1) * (l/2), rand,(i+1) * l, 0);
     ctx.closePath();
-    ctx.fillStyle = colors[i];
+    ctx.fillStyle = ctx.strokeStyle = colors[i];
     ctx.fill();
-    ctx.strokeStyle = colors[i];
     ctx.stroke();
   }
 
