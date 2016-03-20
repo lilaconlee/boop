@@ -1,6 +1,6 @@
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
-var fps = 5000;
+var fps = 100;
 var h = window.innerHeight * window.devicePixelRatio;
 var w = window.innerWidth * window.devicePixelRatio;
 var l = w/5;
@@ -26,6 +26,34 @@ function getColors() {
   console.log(colors);
 }
 
+function init() {
+  for (var i = 0; i < 5; i++) {
+    cur.push(randTop());
+    next.push(randTop());
+  }
+
+  for (var i = 0; i < 5; i++) {
+    cur.push(randBottom());
+    next.push(randBottom());
+  }
+}
+
+function fillScreen() {
+  canvas.width = w;
+  canvas.height = h;
+
+  canvas.style.width = window.innerWidth + 'px';
+  canvas.style.height = window.innerHeight + 'px';
+}
+
+function randTop() {
+  return Math.floor(Math.random() * 1000);
+}
+
+function randBottom() {
+  return Math.floor(Math.random() * (1000 - 200) + 200);
+}
+
 function draw() {
   background();
 
@@ -36,7 +64,7 @@ function draw() {
     } else if (cur[i] > next[i]) {
       cur[i] = cur[i] - 1;
     } else if (cur[i] === next[i]) {
-      next[i] = Math.floor(Math.random() * 1000);
+      next[i] = randTop();
     }
 
     ctx.beginPath();
@@ -52,11 +80,11 @@ function draw() {
     } else if (cur[i+5] > next[i+5]) {
       cur[i+5] = cur[i+5] - 1;
     } else if (cur[i+5] === next[i+5]) {
-      next[i+5] = Math.floor(Math.random() * (1000 - 200) + 200);
+      next[i+5] = randBottom();
     }
 
     ctx.beginPath();
-    ctx.moveTo(i * l, 0);
+    ctx.moveTo(i*l, 0);
     ctx.quadraticCurveTo(((i*2) + 1) * (l/2), cur[i+5],(i+1) * l, 0);
     ctx.closePath();
     ctx.fillStyle = ctx.strokeStyle = colors[i];
@@ -67,26 +95,6 @@ function draw() {
   setTimeout(function() {
     requestAnimationFrame(draw);
   }, 1000/fps);
-}
-
-function init() {
-  for (var i = 0; i < 5; i++) {
-    cur.push(Math.floor(Math.random() * 1000));
-    next.push(Math.floor(Math.random() * 1000));
-  }
-
-  for (var i = 0; i < 5; i++) {
-    cur.push(Math.floor(Math.random() * (1000 - 200) + 200));
-    next.push(Math.floor(Math.random() * (1000 - 200) + 200));
-  }
-}
-
-function fillScreen() {
-  canvas.width = w;
-  canvas.height = h;
-
-  canvas.style.width = window.innerWidth + 'px';
-  canvas.style.height = window.innerHeight + 'px';
 }
 
 getColors();
