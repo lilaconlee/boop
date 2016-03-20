@@ -9,9 +9,28 @@ var colors;
 var cur = [];
 var next = [];
 
+console.log(h, w);
+console.log(3 * h/5);
+
 function background() {
   ctx.fillStyle = base;
   ctx.fillRect(0,0,w,h);
+}
+
+function fillScreen() {
+  canvas.width = w;
+  canvas.height = h;
+
+  canvas.style.width = window.innerWidth + 'px';
+  canvas.style.height = window.innerHeight + 'px';
+}
+
+function randTop() {
+  return Math.floor(Math.random() * 3 * h/5);
+}
+
+function randBottom() {
+  return Math.floor(Math.random() * (3 * h/5 - 200) + 200);
 }
 
 function getColors() {
@@ -36,22 +55,6 @@ function init() {
     cur.push(randBottom());
     next.push(randBottom());
   }
-}
-
-function fillScreen() {
-  canvas.width = w;
-  canvas.height = h;
-
-  canvas.style.width = window.innerWidth + 'px';
-  canvas.style.height = window.innerHeight + 'px';
-}
-
-function randTop() {
-  return Math.floor(Math.random() * 1000);
-}
-
-function randBottom() {
-  return Math.floor(Math.random() * (1000 - 200) + 200);
 }
 
 function draw() {
