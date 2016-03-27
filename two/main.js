@@ -50,6 +50,14 @@ function fillScreen() {
   canvas.style.height = window.innerHeight + 'px';
 }
 
+function resize() {
+  h = window.innerHeight * window.devicePixelRatio;
+  w = window.innerWidth * window.devicePixelRatio;
+  fillScreen();
+  background();
+}
+
+window.onresize = resize;
 fillScreen();
 makeFlakes();
 background();

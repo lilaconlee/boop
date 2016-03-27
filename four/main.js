@@ -46,6 +46,8 @@ function getColors() {
 }
 
 function init() {
+  window.onresize = resize;
+
   for (var i = 0; i < 5; i++) {
     cur.push(randTop());
     next.push(randTop());
@@ -98,6 +100,13 @@ function draw() {
   setTimeout(function() {
     requestAnimationFrame(draw);
   }, 1000/fps);
+}
+
+function resize() {
+  h = window.innerHeight * window.devicePixelRatio;
+  w = window.innerWidth * window.devicePixelRatio;
+  l = w/5;
+  fillScreen();
 }
 
 getColors();

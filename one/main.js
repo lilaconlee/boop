@@ -1,14 +1,16 @@
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 var fps = 20;
+var w = window.innerWidth * window.devicePixelRatio;
+var h = window.innerHeight * window.devicePixelRatio;
 var colors;
 
 function draw() {
   var i = 0;
   var x = 0;
   var d = 30;
-  var width = canvas.width;
-  var height = canvas.height;
+  var width = w;
+  var height = h;
   while (width > d && height > d) {
     ctx.fillStyle = colors[i%colors.length];
     ctx.fillRect(x,x,width,height);
@@ -39,13 +41,20 @@ function getColors() {
 }
 
 function fillScreen() {
-  canvas.width = window.innerWidth * window.devicePixelRatio;
-  canvas.height = window.innerHeight * window.devicePixelRatio;
+  canvas.width = w;
+  canvas.height = h;
 
   canvas.style.width = window.innerWidth + 'px';
   canvas.style.height = window.innerHeight + 'px';
 }
 
+function resize() {
+  w = window.innerWidth * window.devicePixelRatio;
+  h = window.innerHeight * window.devicePixelRatio;
+  fillScreen();
+}
+
+window.onresize = resize;
 fillScreen();
 getColors();
 draw();
